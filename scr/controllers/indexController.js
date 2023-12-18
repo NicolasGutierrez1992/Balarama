@@ -31,7 +31,7 @@ const setArticulos = async (req,res)=>{
     console.log("Entra a setArticulos");
     let articulo = {...req.body}
     console.log(articulo);
-    const query = "INSERT INTO recordsArticulos (CodBar,Nombre,Precio) VALUES ( " + articulo.Codbar +",'"+ articulo.Nombre +"',"+ articulo.Precio +");";
+    const query = "INSERT INTO recordArticulos (CodBar,Nombre,Precio) VALUES ( " + articulo.Codbar +",'"+ articulo.Nombre +"',"+ articulo.Precio +");";
     console.log(query);
     const response = await pool.query(query);
       res.status(200).json("ARTICULO AGREGADO");
@@ -40,7 +40,7 @@ const setArticulos = async (req,res)=>{
   const clearArticulos = async (req,res)=>{
     console.log("Entra a clearArticulos");
     let articulo = {...req.body}    
-    const query = "TRUNCATE TABLE recordsArticulos ;";
+    const query = "TRUNCATE TABLE recordArticulos ;";
     console.log(query);
     const response = await pool.query(query);
       res.status(200).json("ARTICULOS ELIMINADOS");
@@ -59,7 +59,7 @@ const setArticulos = async (req,res)=>{
     
   const createTable = async (req,res)=>{
     try{
-        const query = "CREATE TABLE recordsArticulos( CodBar int, Nombre varchar(40),  Precio float);";
+        const query = "CREATE TABLE recordArticulos( CodBar int, Nombre varchar(40),  Precio float);";
         const response = await pool.query(query);
           res.status(200).json(response.rows[0]);
     }catch(err){
