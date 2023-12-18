@@ -2,11 +2,16 @@
 const{Pool} = require('pg');
 
 const pool = new Pool ({
-    host: 'localhost',
-    user:'postgres',
-    password:'postgres',
-    database:'price',
+    connectionString:process.env.DATABASE_URL,
+    //ssl: true
+    //host: 'localhost'    
+    //user:'balarama',
+    password:'FOPRNTJ4At5zTyKKVLLthW8tUEqskNeN',
+    database:'apiprice',
     port:'5432'
+   //postgres://balarama:FOPRNTJ4At5zTyKKVLLthW8tUEqskNeN@dpg-cm03sita73kc73bvmll0-a.oregon-postgres.render.com/apiprice
+    //host: 'dpg-cm03sita73kc73bvmll0-a'
+    
 })
 
 
@@ -41,10 +46,20 @@ const setArticulos = async (req,res)=>{
       res.status(200).json("ARTICULOS ELIMINADOS");
   }
   
-
+  const ping = async (req,res)=>{
+    try{
+        const query = "SELECT NOW();";
+        const response = await pool.query(query);
+          res.status(200).json(response.rows[0]);
+    }catch(err){
+        res.status(500).json(err);
+    }
+  }
+  
 
 module.exports={
     getArticulos,
     setArticulos,
-    clearArticulos
+    clearArticulos,
+    ping
 }
