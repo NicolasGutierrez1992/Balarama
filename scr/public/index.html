@@ -82,15 +82,19 @@
         }
 		
 	
-        inputCodebar.addEventListener('keydown', inputCharacters);
-        inputNombre.addEventListener('keydown', inputCharacters);
+        inputCodebar.addEventListener('keydown', inputCodebarCharacters);
+        inputNombre.addEventListener('keydown', inputNombreCharacters);
 
-        function inputCharacters(event) {
+        function inputCodebarCharacters(event) {
+            if (event.keyCode == 13) {
+                inputNombre.focus();
         
-        if (event.keyCode == 13) {
-            document.getElementById('inputSecond').focus();
+            }
         }
-
+        function inputNombreCharacters(event) {
+            if (event.keyCode == 13) {
+                inputNuevoPrecio.focus();
+            }
         }
     </script>
     
