@@ -56,10 +56,21 @@ const setArticulos = async (req,res)=>{
     }
   }
   
+    
+  const createTable = async (req,res)=>{
+    try{
+        const query = "CREATE TABLE saveArticulos( CodBar int, Nombre varchar(40),  Precio float);";
+        const response = await pool.query(query);
+          res.status(200).json(response.rows[0]);
+    }catch(err){
+        res.status(500).json(err);
+    }
+  }
 
 module.exports={
     getArticulos,
     setArticulos,
     clearArticulos,
-    ping
+    ping,
+    createTable
 }
