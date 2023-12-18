@@ -10,14 +10,15 @@
   <body>
     <div class="container text-cente.25 mt4 col-lg-6 mx-auto text-center"   >
         
+        <br><br>
         <div class="text-bg-secondary p-3  px-100 gap-5  p-4 mb-2" >ESTAS CAMBIANDO PRECIOS</div>
         <br><br>
         <div class="precioNuevo">
             <form method="POST" id="update">
                 <h1 class=" text-center display-5 fw-bold text-body-emphasis"> Actualizá</h1>
-                <input id="CodeBar" type="text" class="text-center form-control" placeholder="CODIGO DE BARRA" value="0">
-                <input id="Nombre" type="text" class="text-center form-control" placeholder="NOMBRE PRODUCTO" value="PRUEBA">
-                <input id="NuevoPrecio" type="text" class="text-center form-control" placeholder="PRECIO NUEVO" value="0">
+                <input id="CodeBar" type="text" class="text-center form-control" placeholder="CODIGO DE BARRA" >
+                <input id="Nombre" type="text" class="text-center form-control" placeholder="NOMBRE PRODUCTO" >
+                <input id="NuevoPrecio" type="text" class="text-center form-control" placeholder="PRECIO NUEVO">
                 <button id="enviar" type="click" class="btn btn-primary btn-lg  px-4 gap-5">GUARDAR</button>
                 <div class="mensajeOK  p-3 mb-2 bg-success text-white " style="display: none"></div>
             </form>
@@ -43,14 +44,20 @@
             } catch (error) {
                 console.log("buttonEnviar ERROR");
                 PreciosNuevoOk.textContent = "ARTICULO NO EXISTEE: ERROR: " + error;
-				inputCodebar.value = "";
-				inputCodebar.textContent="";
+				inputCodebar.value = "0";
+				inputCodebar.textContent="0";
+                inputNombre.value = "PRUEBA";
+				inputNombre.textContent="PRUEBA";
                 inputCodebar.focus();
 				
             }  
         })
 		
 		function EnviarPrecio(codebar,  nombre, precio){
+            if (codebar == "") {codebar = "0";} 
+            if (nombre == "") {nombre = "PRUEBA";} 
+            if (precio == "") {precio = "0";} 
+
             let reqJson = {Codbar:codebar, Precio:precio,Nombre:nombre};
             console.log("EnviarPrecio");
             fetch(`https://balarama.onrender.com/update/`,{
@@ -65,12 +72,13 @@
                 PreciosNuevoOk.textContent ="PRECIO ACTUALIZADO";
                 inputCodebar.value = "";
 				inputCodebar.textContent="";
+                inputNombre.value = "";
+				inputNombre.textContent="";
 				inputNuevoPrecio.textContent ="";
 				inputNuevoPrecio.value ="";
 				inputCodebar.focus();
 			});
         
-
         }
 		
 	
