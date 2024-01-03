@@ -17,34 +17,61 @@ const pool = new Pool ({
 
 
 const getArticulos = async (req,res)=>{
-  
-        console.log("Entra a getArticulos");
-        const response =  await pool.query("select * from Articulos");
-        console.log("Devuelvo ");
-        console.log(response.rows);
-        res.status(200).json(response.rows);
-   
+
+  try {
+      console.log("Entra a getArticulos");
+      const response =  await pool.query("select * from Articulos where Update = 1");
+      console.log("Devuelvo ");
+      console.log(response.rows);
+      res.status(200).json(response.rows);
+  } catch (error) {
+      res.status(500).json(error);
+  }
 }
 
 
 const setArticulos = async (req,res)=>{
-    console.log("Entra a setArticulos");
-    let articulo = {...req.body}
-    console.log(articulo);
-    const query = "INSERT INTO Articulos (CodBar,Nombre,Precio) VALUES ( '" + articulo.Codbar +"','"+ articulo.Nombre +"',"+ articulo.Precio +");";
-    console.log(query);
-    const response = await pool.query(query);
-      res.status(200).json("ARTICULO AGREGADO");
+   
+  try {
+      console.log("Entra a setArticulos");
+      let articulo = {...req.body}
+      console.log(articulo);
+      const query = "INSERT INTO Articulos (CodBar,Nombre,Precio,Update) VALUES ( '" + articulo.Codbar +"','"+ articulo.Nombre +"',"+ articulo.Precio +",1);";
+      console.log(query);
+      const response = await pool.query(query);
+      res.status(200).json("ARTICULO AGREGADO");  
+  } catch (error) {
+      res.status(500).json(error);
   }
+
+}
   
   const clearArticulos = async (req,res)=>{
-    console.log("Entra a clearArticulos");
-    let articulo = {...req.body}    
-    const query = "TRUNCATE TABLE Articulos ;";
+    try {
+        console.log("Entra a clearArticulos");
+        const query = "Update Articulos SET Update = 0 ;";
+        console.log(query);
+        const response = await pool.query(query);
+        res.status(200).json("ARTICULOS ACTUALIZADOS");
+    } catch (error) {
+        res.status(500).json(error);
+    }
+  }
+
+  const truncateArticulos = async (req,res)=>{
+    try {
+      console.log("Entra a truncateArticulos");
+    const query = "truncate table Articulos;";
     console.log(query);
     const response = await pool.query(query);
       res.status(200).json("ARTICULOS ELIMINADOS");
+    } catch (error) {
+      res.status(500).json(error);
+    }
+    
   }
+
+
   
   const ping = async (req,res)=>{
     try{
@@ -59,11 +86,25 @@ const setArticulos = async (req,res)=>{
     
   const createTable = async (req,res)=>{
     try{
-        const query = "CREATE TABLE Articulos( CodBar  varchar(40), Nombre varchar(40),  Precio float);";
+        const query = "CREATE TABLE Articulos( CodBar  varchar(40), Nombre varchar(40),  Precio float, Update int);";
         const response = await pool.query(query);
-          res.status(200).json(response.rows[0]);
+        res.status(200).json(response.rows[0]);
     }catch(err){
         res.status(500).json(err);
+    }
+  }
+
+  const updateArticulos = async ( req, res)=>{
+    try {
+        console.log("Entra a updateArticulos");
+        let articulo = {...req.body}
+        console.log(articulo);
+        const query = "update Articulos SET Precio = '"+articulo.Precio+"' , Nombre = '" + articulo.Nombre+"');";
+        console.log(query);
+        const response = await pool.query(query);
+        res.status(200).json("ARTICULO ACTUALIZADO");
+    } catch (err) {
+       res.status(500).json(err);
     }
   }
 
@@ -72,5 +113,6 @@ module.exports={
     setArticulos,
     clearArticulos,
     ping,
-    createTable
-}
+    createTable,
+    updateArticulos,
+    truncateArticulos}
