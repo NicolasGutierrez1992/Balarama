@@ -86,7 +86,7 @@ const setArticulos = async (req,res)=>{
     
   const createTable = async (req,res)=>{
     try{
-        const query = "CREATE TABLE Articulos( CodBar  varchar(40), Nombre varchar(40),  Precio float, Update int);";
+        const query = "CREATE TABLE ArticulosPG( CodBar  varchar(40), Nombre varchar(40),  Precio float, Update int);";
         const response = await pool.query(query);
         res.status(200).json(response.rows[0]);
     }catch(err){
