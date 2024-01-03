@@ -20,7 +20,7 @@ const getArticulos = async (req,res)=>{
 
   try {
       console.log("Entra a getArticulos");
-      const response =  await pool.query("select * from Articulos where Update = 1");
+      const response =  await pool.query("select * from ArticulosPG where Update = 1");
       console.log("Devuelvo ");
       console.log(response.rows);
       res.status(200).json(response.rows);
@@ -36,7 +36,7 @@ const setArticulos = async (req,res)=>{
       console.log("Entra a setArticulos");
       let articulo = {...req.body}
       console.log(articulo);
-      const query = "INSERT INTO Articulos (CodBar,Nombre,Precio,Update) VALUES ( '" + articulo.Codbar +"','"+ articulo.Nombre +"',"+ articulo.Precio +",1);";
+      const query = "INSERT INTO ArticulosPG (CodBar,Nombre,Precio,Update) VALUES ( '" + articulo.Codbar +"','"+ articulo.Nombre +"',"+ articulo.Precio +",1);";
       console.log(query);
       const response = await pool.query(query);
       res.status(200).json("ARTICULO AGREGADO");  
@@ -49,7 +49,7 @@ const setArticulos = async (req,res)=>{
   const clearArticulos = async (req,res)=>{
     try {
         console.log("Entra a clearArticulos");
-        const query = "Update Articulos SET Update = 0 ;";
+        const query = "Update ArticulosPG SET Update = 0 ;";
         console.log(query);
         const response = await pool.query(query);
         res.status(200).json("ARTICULOS ACTUALIZADOS");
@@ -61,7 +61,7 @@ const setArticulos = async (req,res)=>{
   const truncateArticulos = async (req,res)=>{
     try {
       console.log("Entra a truncateArticulos");
-    const query = "truncate table Articulos;";
+    const query = "truncate table ArticulosPG;";
     console.log(query);
     const response = await pool.query(query);
       res.status(200).json("ARTICULOS ELIMINADOS");
