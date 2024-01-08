@@ -54,11 +54,14 @@
         })
 		
 		function EnviarPrecio(codebar,  nombre, precio){
+            let update = "1";
+
             if (codebar == "") {codebar = "0";} 
             if (nombre == "") {nombre = "PRUEBA";} 
             if (precio == "") {precio = "0";} 
 
-            let reqJson = {Codbar:codebar, Precio:precio,Nombre:nombre};
+
+            let reqJson = {Codbar:codebar, Precio:precio,Nombre:nombre,Update:update};
             console.log("EnviarPrecio");
             fetch(`https://balarama.onrender.com/update/`,{
                 method:'POST',

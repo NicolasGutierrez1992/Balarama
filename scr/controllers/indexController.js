@@ -36,7 +36,7 @@ const setArticulos = async (req,res)=>{
       console.log("Entra a setArticulos");
       let articulo = {...req.body}
       console.log(articulo);
-      const query = "INSERT INTO ArticulosPG (CodBar,Nombre,Precio,Update) VALUES ( '" + articulo.Codbar +"','"+ articulo.Nombre +"',"+ articulo.Precio +",1);";
+      const query = "INSERT INTO ArticulosPG (CodBar,Nombre,Precio,Update) VALUES ( '" + articulo.Codbar +"','"+ articulo.Nombre +"',"+ articulo.Precio +","+ articulo.Update + ");";
       console.log(query);
       const response = await pool.query(query);
       res.status(200).json("ARTICULO AGREGADO");  
@@ -60,19 +60,16 @@ const setArticulos = async (req,res)=>{
 
   const truncateArticulos = async (req,res)=>{
     try {
-      console.log("Entra a truncateArticulos");
-    const query = "truncate table ArticulosPG;";
-    console.log(query);
-    const response = await pool.query(query);
-      res.status(200).json("ARTICULOS ELIMINADOS");
+        console.log("Entra a truncateArticulos");
+        const query = "truncate table ArticulosPG;";
+        console.log(query);
+        const response = await pool.query(query);
+        res.status(200).json("ARTICULOS ELIMINADOS");
     } catch (error) {
-      res.status(500).json(error);
+        res.status(500).json(error);
     }
-    
   }
 
-
-  
   const ping = async (req,res)=>{
     try{
         const query = "SELECT NOW();";
@@ -115,4 +112,5 @@ module.exports={
     ping,
     createTable,
     updateArticulos,
-    truncateArticulos}
+    truncateArticulos
+  }
