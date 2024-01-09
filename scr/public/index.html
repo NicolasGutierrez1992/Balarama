@@ -95,7 +95,7 @@
             }
         }
         function traerPrecio(codebar){
-            fetch(HOST + `https://balarama.onrender.com/update/${codebar}/`)
+            fetch(`https://balarama.onrender.com/update/${codebar}/`)
             .then((res)=>res.json())
             .then((data)=>mostrarPrecio(data[0]));
         }
