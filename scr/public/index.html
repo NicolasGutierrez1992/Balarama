@@ -62,14 +62,7 @@
             .then((res)=>res.json())
             .then((data)=>{
                 console.log(data);
-                RegistrosEnDB.textContent =data + " Registros de db";
-                inputCodebar.value = "";
-				inputCodebar.textContent="";
-                inputNombre.value = "";
-				inputNombre.textContent="";
-				inputNuevoPrecio.textContent ="";
-				inputNuevoPrecio.value ="";
-				inputCodebar.focus();
+                RegistrosEnDB.textContent =data[0].count + " Registros de db";
 			});
         }
 		function EnviarPrecio(codebar,  nombre, precio){
