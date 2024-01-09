@@ -40,7 +40,7 @@
             try {
                 e.preventDefault();
                 console.log("buttonEnviar");
-               EnviarPrecio(inputCodebar.value,inputNombre.value,NuevoPrecio.value);
+                EnviarPrecio(inputCodebar.value,inputNombre.value,NuevoPrecio.value);
             } catch (error) {
                 console.log("buttonEnviar ERROR");
                 PreciosNuevoOk.textContent = "ARTICULO NO EXISTEE: ERROR: " + error;
@@ -49,7 +49,6 @@
                 inputNombre.value = "PRUEBA";
 				inputNombre.textContent="PRUEBA";
                 inputCodebar.focus();
-				
             }  
         })
 		
@@ -63,7 +62,7 @@
 
             let reqJson = {Codbar:codebar, Precio:precio,Nombre:nombre,Update:update};
             console.log("EnviarPrecio");
-            fetch(`https://balarama.onrender.com/update/`,{
+            fetch(`https://balarama.onrender.com/updateWeb/`,{
                 method:'POST',
                 body: JSON.stringify(reqJson),
                 headers:{
@@ -99,6 +98,25 @@
             fetch(HOST + `https://balarama.onrender.com/update/${codebar}/`)
             .then((res)=>res.json())
             .then((data)=>mostrarPrecio(data[0]));
+        }
+        function mostrarPrecio(precio){
+            try {
+                inputNombre.value       = precio.Nombre;
+                inputNombre.textContent = precio.Nombre;
+                
+                inputNuevoPrecio.value       = precio.Precio;
+                inputNuevoPrecio.textContent = precio.Precio;
+                inputNuevoPrecio.focus();
+
+            } catch (error) {
+                Precios.textContent ="ARTICULO NO EXISTE";
+				inputNuevoPrecio.value = "";
+				inputNuevoPrecio.textContent="";
+                inputNombre.value = "NO ENCONTRADO";
+				inputNombre.textContent="NO ENCONTRADO";
+                inputNuevoPrecio.focus();
+            }
+           
         }
         function inputNombreCharacters(event) {
             if (event.keyCode == 13) {
