@@ -3,7 +3,7 @@ const router = Router();
 const {getArticulos, setArticulos,clearArticulos,ping,createTable,updateArticulos,truncateArticulos} = require('../controllers/indexController')
 
 
-router.get("/update",getArticulos);
+router.get("/update/:codebar",getArticulos);
 router.post("/update",setArticulos);
 router.get("/clear",clearArticulos);
 router.get("/ping",ping);
