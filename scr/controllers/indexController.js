@@ -20,7 +20,12 @@ const getArticulos = async (req,res)=>{
 
   try {
       console.log("Entra a getArticulos");
-      const response =  await pool.query("select * from ArticulosPG where Update = 1");
+      if(request.params.codebar != ''){
+        const response =  await pool.query("select * from ArticulosPG where Codbar = " + request.params.codebar);
+      }else{
+        const response =  await pool.query("select * from ArticulosPG where Update = 1");
+      }
+      
       console.log("Devuelvo ");
       console.log(response.rows);
       res.status(200).json(response.rows);

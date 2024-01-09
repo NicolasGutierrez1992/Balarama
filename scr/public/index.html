@@ -91,9 +91,14 @@
 
         function inputCodebarCharacters(event) {
             if (event.keyCode == 13) {
-                inputNombre.focus();
-        
+                inputNuevoPrecio.focus();
+                traerPrecio(inputCodebar.value);
             }
+        }
+        function traerPrecio(codebar){
+            fetch(HOST + `https://balarama.onrender.com/update/${codebar}/`)
+            .then((res)=>res.json())
+            .then((data)=>mostrarPrecio(data[0]));
         }
         function inputNombreCharacters(event) {
             if (event.keyCode == 13) {
