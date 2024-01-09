@@ -1,9 +1,10 @@
 const{Router} = require('express');
 const router = Router();
-const {createTableWeb,truncateArticulosWeb,setArticulosWeb,getArticulos, setArticulos,ping,createTable,truncateArticulos} = require('../controllers/indexController')
+const {GetCount,createTableWeb,truncateArticulosWeb,setArticulosWeb,getArticulos, setArticulos,ping,createTable,truncateArticulos} = require('../controllers/indexController')
 
 
-router.get("/update/:codebar",getArticulos);//Trae el precio de del producto
+router.get("/GetCount",GetCount);//Trae la cantidad de registros de lista de precios
+router.get("/update/:codebar",getArticulos);//Trae el precio de producto
 router.get("/update",getArticulos);//Trae los precios almacenados en la tabla web
 
 router.post("/update",setArticulos);//Guarda la lista de precios local en la web

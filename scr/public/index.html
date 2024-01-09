@@ -23,6 +23,8 @@
                 <div class="mensajeOK  p-3 mb-2 bg-success text-white " style="display: none"></div>
             <!-- </form> -->
         </div>
+
+        <div class="RegistrosEnDB"></div>
     </div>
     
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.7/dist/umd/popper.min.js" integrity="sha384-zYPOMqeu1DAVkHiLqWBUTcbYfZ8osu1Nd6Z89ify25QV9guujx43ITvfi12/QExE" crossorigin="anonymous"></script>
@@ -34,6 +36,7 @@
         const inputNuevoPrecio = document.getElementById('NuevoPrecio');
         const buttonEnviar = document.getElementById('enviar');
         const PreciosNuevoOk =  document.querySelector('.mensajeOK');
+        const RegistrosEnDB =  document.querySelector('.RegistrosEnDB');
 
         
         buttonEnviar.addEventListener('click',(e)=>{
@@ -41,6 +44,7 @@
                 e.preventDefault();
                 console.log("buttonEnviar");
                 EnviarPrecio(inputCodebar.value,inputNombre.value,NuevoPrecio.value);
+                obtenerRegistros();
             } catch (error) {
                 console.log("buttonEnviar ERROR");
                 PreciosNuevoOk.textContent = "ARTICULO NO EXISTEE: ERROR: " + error;
@@ -52,6 +56,22 @@
             }  
         })
 		
+        function obtenerRegistros(){
+            console.log("EnviarPrecio");
+            fetch(`https://balarama.onrender.com/GetCount/`)
+            .then((res)=>res.json())
+            .then((data)=>{
+                console.log(data);
+                RegistrosEnDB.textContent =data + " Registros de db";
+                inputCodebar.value = "";
+				inputCodebar.textContent="";
+                inputNombre.value = "";
+				inputNombre.textContent="";
+				inputNuevoPrecio.textContent ="";
+				inputNuevoPrecio.value ="";
+				inputCodebar.focus();
+			});
+        }
 		function EnviarPrecio(codebar,  nombre, precio){
             let update = "1";
 
@@ -107,6 +127,7 @@
                 inputNuevoPrecio.value       = precio.precio;
                 inputNuevoPrecio.textContent = precio.precio;
                 inputNuevoPrecio.focus();
+                obtenerRegistros();
 
             } catch (error) {
                // Precios.textContent ="ARTICULO NO EXISTE";

@@ -40,6 +40,20 @@ const getArticulos = async (req,res)=>{
       res.status(500).json(error);
   }
 }
+const GetCount = async (req,res)=>{
+
+  try {
+      console.log("Entra a GetCount");
+      let response =  await pool.query("select count(codbar) from ArticulosPG");
+      
+      console.log("Devuelvo ");
+      console.log(response.rows);
+      res.status(200).json(response.rows);
+  } catch (error) {
+      console.log(error);
+      res.status(500).json(error);
+  }
+}
 
 
 const setArticulos = async (req,res)=>{
@@ -128,6 +142,7 @@ const createTableWeb = async (req,res)=>{
 
 
 module.exports={
+    GetCount,
     truncateArticulosWeb,
     getArticulos,
     setArticulos,
