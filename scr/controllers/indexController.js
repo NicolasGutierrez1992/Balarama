@@ -33,6 +33,7 @@ const getArticulos = async (req,res)=>{
       console.log(response.rows);
       res.status(200).json(response.rows);
   } catch (error) {
+      console.log(error);
       res.status(500).json(error);
   }
 }
