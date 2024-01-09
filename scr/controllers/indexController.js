@@ -21,9 +21,11 @@ const getArticulos = async (req,res)=>{
   try {
       console.log("Entra a getArticulos");
       let response ;
+      let query;
       if(req.params.codebar != ''){
         console.log("consulto CodBar " + req.params.codebar);
-        response =  await pool.query("select * from ArticulosPG where CodBar = " + req.params.codebar);
+        query = "select * from ArticulosPG where CodBar = " + req.params.codebar;
+        response =  await pool.query(query);
       }else{
         console.log("consulto update 1 " );
         response =  await pool.query("select * from ArticulosPG where Update = 1");
