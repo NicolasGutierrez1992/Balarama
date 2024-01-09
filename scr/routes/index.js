@@ -4,6 +4,7 @@ const {getArticulos, setArticulos,clearArticulos,ping,createTable,updateArticulo
 
 
 router.get("/update/:codebar",getArticulos);
+router.get("/update",getArticulos);
 router.post("/update",setArticulos);
 router.get("/clear",clearArticulos);
 router.get("/ping",ping);
